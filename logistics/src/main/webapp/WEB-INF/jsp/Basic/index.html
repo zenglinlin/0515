@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="UTF-8">
+
+		<link href="../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+		<link href="../css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+		<link href="../css/animate.css" rel="stylesheet">
+		<link href="../css/style.css?v=4.1.0" rel="stylesheet">
+
+		<style type="text/css">
+		body {
+			padding-bottom: 40px;
+		}
+
+		.sidebar-nav {
+			padding: 9px 0;
+		}
+
+		@media ( max-width : 980px) {
+			/* Enable use of floated navbar text */
+			.navbar-text.pull-right {
+				float: none;
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+		}
+		</style>
+		<script src="../js/jquery.min.js?v=2.1.4"></script>
+		<script src="../js/bootstrap.min.js?v=3.3.6"></script>
+	</head>
+	<body>
+		<form class="form-inline definewidth m20" action="index.html"
+			method="get">
+			数据名称： <input type="text" name="baseName" id="baseName"
+				class="abc input-default" placeholder="" value="">&nbsp;&nbsp;
+			<button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
+			<button type="button" class="btn btn-success" id="addnew">新增基础数据</button>
+		</form>
+		<table class="table table-bordered table-hover definewidth m10">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>数据名称</th>
+					<th>描述</th>
+					<th>父ID</th>
+					<th>管理操作</th>
+				</tr>
+			</thead>
+			<tr>
+				<td>1</td>
+				<td>付款方式</td>
+				<td></td>
+				<td>0</td>
+				<td><a href="edit.html">编辑</a></td>
+			</tr>
+		</table>
+
+	</body>
+</html>

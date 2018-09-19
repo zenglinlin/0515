@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.CustomPOMapper">
+  <resultMap id="BaseResultMap" type="com.web.yt.pojo.CustomPO">
+    <id column="custom_id" jdbcType="INTEGER" property="customId" />
+    <result column="custom_name" jdbcType="VARCHAR" property="customName" />
+    <result column="saleman_id" jdbcType="INTEGER" property="salemanId" />
+    <result column="custom_phone" jdbcType="VARCHAR" property="customPhone" />
+    <result column="comm_interval_id" jdbcType="INTEGER" property="commIntervalId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="sex" jdbcType="BIT" property="sex" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="c1" jdbcType="VARCHAR" property="c1" />
+    <result column="c2" jdbcType="VARCHAR" property="c2" />
+    <result column="c3" jdbcType="VARCHAR" property="c3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    custom_id, custom_name, saleman_id, custom_phone, comm_interval_id, address, sex, 
+    id_card, desc, c1, c2, c3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_custom
+    where custom_id = #{customId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_custom
+    where custom_id = #{customId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.yt.pojo.CustomPO">
+    insert into t_custom (custom_id, custom_name, saleman_id, 
+      custom_phone, comm_interval_id, address, 
+      sex, id_card, desc, c1, 
+      c2, c3)
+    values (#{customId,jdbcType=INTEGER}, #{customName,jdbcType=VARCHAR}, #{salemanId,jdbcType=INTEGER}, 
+      #{customPhone,jdbcType=VARCHAR}, #{commIntervalId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=BIT}, #{idCard,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{c1,jdbcType=VARCHAR}, 
+      #{c2,jdbcType=VARCHAR}, #{c3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.yt.pojo.CustomPO">
+    insert into t_custom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="customId != null">
+        custom_id,
+      </if>
+      <if test="customName != null">
+        custom_name,
+      </if>
+      <if test="salemanId != null">
+        saleman_id,
+      </if>
+      <if test="customPhone != null">
+        custom_phone,
+      </if>
+      <if test="commIntervalId != null">
+        comm_interval_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="desc != null">
+        desc,
+      </if>
+      <if test="c1 != null">
+        c1,
+      </if>
+      <if test="c2 != null">
+        c2,
+      </if>
+      <if test="c3 != null">
+        c3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="customId != null">
+        #{customId,jdbcType=INTEGER},
+      </if>
+      <if test="customName != null">
+        #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="salemanId != null">
+        #{salemanId,jdbcType=INTEGER},
+      </if>
+      <if test="customPhone != null">
+        #{customPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="commIntervalId != null">
+        #{commIntervalId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="c1 != null">
+        #{c1,jdbcType=VARCHAR},
+      </if>
+      <if test="c2 != null">
+        #{c2,jdbcType=VARCHAR},
+      </if>
+      <if test="c3 != null">
+        #{c3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.CustomPO">
+    update t_custom
+    <set>
+      <if test="customName != null">
+        custom_name = #{customName,jdbcType=VARCHAR},
+      </if>
+      <if test="salemanId != null">
+        saleman_id = #{salemanId,jdbcType=INTEGER},
+      </if>
+      <if test="customPhone != null">
+        custom_phone = #{customPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="commIntervalId != null">
+        comm_interval_id = #{commIntervalId,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        desc = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="c1 != null">
+        c1 = #{c1,jdbcType=VARCHAR},
+      </if>
+      <if test="c2 != null">
+        c2 = #{c2,jdbcType=VARCHAR},
+      </if>
+      <if test="c3 != null">
+        c3 = #{c3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where custom_id = #{customId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.CustomPO">
+    update t_custom
+    set custom_name = #{customName,jdbcType=VARCHAR},
+      saleman_id = #{salemanId,jdbcType=INTEGER},
+      custom_phone = #{customPhone,jdbcType=VARCHAR},
+      comm_interval_id = #{commIntervalId,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=BIT},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      desc = #{desc,jdbcType=VARCHAR},
+      c1 = #{c1,jdbcType=VARCHAR},
+      c2 = #{c2,jdbcType=VARCHAR},
+      c3 = #{c3,jdbcType=VARCHAR}
+    where custom_id = #{customId,jdbcType=INTEGER}
+  </update>
+</mapper>

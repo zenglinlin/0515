@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.MenuPOMapper">
+	<resultMap id="BaseResultMap" type="com.web.yt.pojo.MenuPO">
+		<id column="menu_id" jdbcType="INTEGER" property="menuId" />
+		<result column="menu_parent_id" jdbcType="INTEGER" property="menuParentId" />
+		<result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+		<result column="menu_link" jdbcType="VARCHAR" property="menuLink" />
+		<result column="security_name" jdbcType="VARCHAR" property="securityName" />
+		<result column="menu_desc" jdbcType="VARCHAR" property="menuDesc" />
+		<result column="m1" jdbcType="VARCHAR" property="m1" />
+		<result column="m2" jdbcType="VARCHAR" property="m2" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		menu_id, menu_parent_id, menu_name, menu_link,
+		security_name, menu_desc, m1,
+		m2
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectMenu" parameterType="com.web.yt.pojo.MenuPO"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_menu
+		<where>
+			<if test="menuName != null and menuName != ''">and menu_name like '%' #{menuName} '%'</if>
+		</where>
+	</select>
+
+	<select id="selectMenuName" resultMap="BaseResultMap">
+		select
+			*
+		from t_menu
+	</select>
+
+	<select id="selectMenuByRoleId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		menu.*
+		from t_menu menu where menu.menu_id in(
+		select menu_id from t_role_menu where role_id = #{roleId}
+		)
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_menu
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.web.yt.pojo.MenuPO">
+		insert into t_menu (menu_id,
+		menu_parent_id, menu_name,
+		menu_link, security_name, menu_desc,
+		m1, m2)
+		values (#{menuId,jdbcType=INTEGER}, #{menuParentId,jdbcType=INTEGER},
+		#{menuName,jdbcType=VARCHAR},
+		#{menuLink,jdbcType=VARCHAR},
+		#{securityName,jdbcType=VARCHAR}, #{menuDesc,jdbcType=VARCHAR},
+		#{m1,jdbcType=VARCHAR}, #{m2,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.web.yt.pojo.MenuPO">
+		insert into t_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="menuParentId != null">
+				menu_parent_id,
+			</if>
+			<if test="menuName != null">
+				menu_name,
+			</if>
+			<if test="menuLink != null">
+				menu_link,
+			</if>
+			<if test="securityName != null">
+				security_name,
+			</if>
+			<if test="menuDesc != null">
+				menu_desc,
+			</if>
+			<if test="m1 != null">
+				m1,
+			</if>
+			<if test="m2 != null">
+				m2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="menuId != null">
+				#{menuId,jdbcType=INTEGER},
+			</if>
+			<if test="menuParentId != null">
+				#{menuParentId,jdbcType=INTEGER},
+			</if>
+			<if test="menuName != null">
+				#{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuLink != null">
+				#{menuLink,jdbcType=VARCHAR},
+			</if>
+			<if test="securityName != null">
+				#{securityName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuDesc != null">
+				#{menuDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="m1 != null">
+				#{m1,jdbcType=VARCHAR},
+			</if>
+			<if test="m2 != null">
+				#{m2,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.MenuPO">
+		update t_menu
+		<set>
+			<if test="menuParentId != null">
+				menu_parent_id = #{menuParentId,jdbcType=INTEGER},
+			</if>
+			<if test="menuName != null">
+				menu_name = #{menuName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuLink != null">
+				menu_link = #{menuLink,jdbcType=VARCHAR},
+			</if>
+			<if test="securityName != null">
+				security_name = #{securityName,jdbcType=VARCHAR},
+			</if>
+			<if test="menuDesc != null">
+				menu_desc = #{menuDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="m1 != null">
+				m1 = #{m1,jdbcType=VARCHAR},
+			</if>
+			<if test="m2 != null">
+				m2 = #{m2,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.MenuPO">
+		update t_menu
+		set
+		menu_parent_id = #{menuParentId,jdbcType=INTEGER},
+		menu_name =
+		#{menuName,jdbcType=VARCHAR},
+		menu_link = #{menuLink,jdbcType=VARCHAR},
+		security_name = #{securityName,jdbcType=VARCHAR},
+		menu_desc =
+		#{menuDesc,jdbcType=VARCHAR},
+		m1 = #{m1,jdbcType=VARCHAR},
+		m2 =
+		#{m2,jdbcType=VARCHAR}
+		where menu_id = #{menuId,jdbcType=INTEGER}
+	</update>
+</mapper>

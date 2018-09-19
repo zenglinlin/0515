@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.OrderDetailPOMapper">
+  <resultMap id="BaseResultMap" type="com.web.yt.pojo.OrderDetailPO">
+    <id column="order_detail_id" jdbcType="INTEGER" property="orderDetailId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="amount" jdbcType="SMALLINT" property="amount" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="total" jdbcType="DECIMAL" property="total" />
+    <result column="od1" jdbcType="VARCHAR" property="od1" />
+    <result column="od2" jdbcType="VARCHAR" property="od2" />
+    <result column="od3" jdbcType="VARCHAR" property="od3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_detail_id, order_id, goods_name, amount, unit, unit_price, total, od1, od2, 
+    od3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_detail
+    where order_detail_id = #{orderDetailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_order_detail
+    where order_detail_id = #{orderDetailId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.yt.pojo.OrderDetailPO">
+    insert into t_order_detail (order_detail_id, order_id, goods_name, 
+      amount, unit, unit_price, 
+      total, od1, od2, od3
+      )
+    values (#{orderDetailId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{goodsName,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=SMALLINT}, #{unit,jdbcType=VARCHAR}, #{unitPrice,jdbcType=DECIMAL}, 
+      #{total,jdbcType=DECIMAL}, #{od1,jdbcType=VARCHAR}, #{od2,jdbcType=VARCHAR}, #{od3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.yt.pojo.OrderDetailPO">
+    insert into t_order_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderDetailId != null">
+        order_detail_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="goodsName != null">
+        goods_name,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="unitPrice != null">
+        unit_price,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="od1 != null">
+        od1,
+      </if>
+      <if test="od2 != null">
+        od2,
+      </if>
+      <if test="od3 != null">
+        od3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderDetailId != null">
+        #{orderDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=SMALLINT},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="od1 != null">
+        #{od1,jdbcType=VARCHAR},
+      </if>
+      <if test="od2 != null">
+        #{od2,jdbcType=VARCHAR},
+      </if>
+      <if test="od3 != null">
+        #{od3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.OrderDetailPO">
+    update t_order_detail
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="goodsName != null">
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=SMALLINT},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="unitPrice != null">
+        unit_price = #{unitPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=DECIMAL},
+      </if>
+      <if test="od1 != null">
+        od1 = #{od1,jdbcType=VARCHAR},
+      </if>
+      <if test="od2 != null">
+        od2 = #{od2,jdbcType=VARCHAR},
+      </if>
+      <if test="od3 != null">
+        od3 = #{od3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_detail_id = #{orderDetailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.OrderDetailPO">
+    update t_order_detail
+    set order_id = #{orderId,jdbcType=INTEGER},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=SMALLINT},
+      unit = #{unit,jdbcType=VARCHAR},
+      unit_price = #{unitPrice,jdbcType=DECIMAL},
+      total = #{total,jdbcType=DECIMAL},
+      od1 = #{od1,jdbcType=VARCHAR},
+      od2 = #{od2,jdbcType=VARCHAR},
+      od3 = #{od3,jdbcType=VARCHAR}
+    where order_detail_id = #{orderDetailId,jdbcType=INTEGER}
+  </update>
+</mapper>

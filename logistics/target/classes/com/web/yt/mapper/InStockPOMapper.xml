@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.InStockPOMapper">
+  <resultMap id="BaseResultMap" type="com.web.yt.pojo.InStockPO">
+    <id column="in_stock_id" jdbcType="INTEGER" property="inStockId" />
+    <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="in_user_id" jdbcType="INTEGER" property="inUserId" />
+    <result column="receipt_cost" jdbcType="DECIMAL" property="receiptCost" />
+    <result column="volume_rate" jdbcType="DECIMAL" property="volumeRate" />
+    <result column="weight_rate" jdbcType="DECIMAL" property="weightRate" />
+    <result column="warehouse_id" jdbcType="INTEGER" property="warehouseId" />
+    <result column="s1" jdbcType="VARCHAR" property="s1" />
+    <result column="s2" jdbcType="VARCHAR" property="s2" />
+    <result column="s3" jdbcType="VARCHAR" property="s3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    in_stock_id, order_id, in_user_id, receipt_cost, volume_rate, weight_rate, warehouse_id, 
+    s1, s2, s3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_in_stock
+    where in_stock_id = #{inStockId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_in_stock
+    where in_stock_id = #{inStockId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.yt.pojo.InStockPO">
+    insert into t_in_stock (in_stock_id, order_id, in_user_id, 
+      receipt_cost, volume_rate, weight_rate, 
+      warehouse_id, s1, s2, 
+      s3)
+    values (#{inStockId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{inUserId,jdbcType=INTEGER}, 
+      #{receiptCost,jdbcType=DECIMAL}, #{volumeRate,jdbcType=DECIMAL}, #{weightRate,jdbcType=DECIMAL}, 
+      #{warehouseId,jdbcType=INTEGER}, #{s1,jdbcType=VARCHAR}, #{s2,jdbcType=VARCHAR}, 
+      #{s3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.yt.pojo.InStockPO">
+    insert into t_in_stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inStockId != null">
+        in_stock_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="inUserId != null">
+        in_user_id,
+      </if>
+      <if test="receiptCost != null">
+        receipt_cost,
+      </if>
+      <if test="volumeRate != null">
+        volume_rate,
+      </if>
+      <if test="weightRate != null">
+        weight_rate,
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id,
+      </if>
+      <if test="s1 != null">
+        s1,
+      </if>
+      <if test="s2 != null">
+        s2,
+      </if>
+      <if test="s3 != null">
+        s3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inStockId != null">
+        #{inStockId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="inUserId != null">
+        #{inUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCost != null">
+        #{receiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="volumeRate != null">
+        #{volumeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="weightRate != null">
+        #{weightRate,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseId != null">
+        #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="s1 != null">
+        #{s1,jdbcType=VARCHAR},
+      </if>
+      <if test="s2 != null">
+        #{s2,jdbcType=VARCHAR},
+      </if>
+      <if test="s3 != null">
+        #{s3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.InStockPO">
+    update t_in_stock
+    <set>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="inUserId != null">
+        in_user_id = #{inUserId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCost != null">
+        receipt_cost = #{receiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="volumeRate != null">
+        volume_rate = #{volumeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="weightRate != null">
+        weight_rate = #{weightRate,jdbcType=DECIMAL},
+      </if>
+      <if test="warehouseId != null">
+        warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      </if>
+      <if test="s1 != null">
+        s1 = #{s1,jdbcType=VARCHAR},
+      </if>
+      <if test="s2 != null">
+        s2 = #{s2,jdbcType=VARCHAR},
+      </if>
+      <if test="s3 != null">
+        s3 = #{s3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where in_stock_id = #{inStockId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.InStockPO">
+    update t_in_stock
+    set order_id = #{orderId,jdbcType=INTEGER},
+      in_user_id = #{inUserId,jdbcType=INTEGER},
+      receipt_cost = #{receiptCost,jdbcType=DECIMAL},
+      volume_rate = #{volumeRate,jdbcType=DECIMAL},
+      weight_rate = #{weightRate,jdbcType=DECIMAL},
+      warehouse_id = #{warehouseId,jdbcType=INTEGER},
+      s1 = #{s1,jdbcType=VARCHAR},
+      s2 = #{s2,jdbcType=VARCHAR},
+      s3 = #{s3,jdbcType=VARCHAR}
+    where in_stock_id = #{inStockId,jdbcType=INTEGER}
+  </update>
+</mapper>

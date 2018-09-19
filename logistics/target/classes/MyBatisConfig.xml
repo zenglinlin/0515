@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- 主配置文件 -->
+<configuration>
+
+	<!-- 2.配置MyBatis参数 -->
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+
+		<!-- 驼峰命名规则 -->
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="logImpl" value="STDOUT_LOGGING" />
+	</settings>
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<property name="helpDialect" value="mysql" />
+		</plugin>
+	</plugins>
+
+</configuration>

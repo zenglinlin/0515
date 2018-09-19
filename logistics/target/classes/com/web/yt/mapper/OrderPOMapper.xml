@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.OrderPOMapper">
+  <resultMap id="BaseResultMap" type="com.web.yt.pojo.OrderPO">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="saleman_id" jdbcType="INTEGER" property="salemanId" />
+    <result column="custom_id" jdbcType="INTEGER" property="customId" />
+    <result column="arrive_country_id" jdbcType="INTEGER" property="arriveCountryId" />
+    <result column="shipping_address" jdbcType="VARCHAR" property="shippingAddress" />
+    <result column="shipping_name" jdbcType="VARCHAR" property="shippingName" />
+    <result column="shipping_phone" jdbcType="VARCHAR" property="shippingPhone" />
+    <result column="pay_type_id" jdbcType="INTEGER" property="payTypeId" />
+    <result column="cargo_shipping_id" jdbcType="INTEGER" property="cargoShippingId" />
+    <result column="receipt_id" jdbcType="INTEGER" property="receiptId" />
+    <result column="take_name" jdbcType="VARCHAR" property="takeName" />
+    <result column="take_address" jdbcType="VARCHAR" property="takeAddress" />
+    <result column="take_phone" jdbcType="VARCHAR" property="takePhone" />
+    <result column="o1" jdbcType="VARCHAR" property="o1" />
+    <result column="o2" jdbcType="VARCHAR" property="o2" />
+    <result column="o3" jdbcType="VARCHAR" property="o3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, saleman_id, custom_id, arrive_country_id, shipping_address, shipping_name, 
+    shipping_phone, pay_type_id, cargo_shipping_id, receipt_id, take_name, take_address, 
+    take_phone, o1, o2, o3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.yt.pojo.OrderPO">
+    insert into t_order (order_id, saleman_id, custom_id, 
+      arrive_country_id, shipping_address, shipping_name, 
+      shipping_phone, pay_type_id, cargo_shipping_id, 
+      receipt_id, take_name, take_address, 
+      take_phone, o1, o2, 
+      o3)
+    values (#{orderId,jdbcType=INTEGER}, #{salemanId,jdbcType=INTEGER}, #{customId,jdbcType=INTEGER}, 
+      #{arriveCountryId,jdbcType=INTEGER}, #{shippingAddress,jdbcType=VARCHAR}, #{shippingName,jdbcType=VARCHAR}, 
+      #{shippingPhone,jdbcType=VARCHAR}, #{payTypeId,jdbcType=INTEGER}, #{cargoShippingId,jdbcType=INTEGER}, 
+      #{receiptId,jdbcType=INTEGER}, #{takeName,jdbcType=VARCHAR}, #{takeAddress,jdbcType=VARCHAR}, 
+      #{takePhone,jdbcType=VARCHAR}, #{o1,jdbcType=VARCHAR}, #{o2,jdbcType=VARCHAR}, 
+      #{o3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.yt.pojo.OrderPO">
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="salemanId != null">
+        saleman_id,
+      </if>
+      <if test="customId != null">
+        custom_id,
+      </if>
+      <if test="arriveCountryId != null">
+        arrive_country_id,
+      </if>
+      <if test="shippingAddress != null">
+        shipping_address,
+      </if>
+      <if test="shippingName != null">
+        shipping_name,
+      </if>
+      <if test="shippingPhone != null">
+        shipping_phone,
+      </if>
+      <if test="payTypeId != null">
+        pay_type_id,
+      </if>
+      <if test="cargoShippingId != null">
+        cargo_shipping_id,
+      </if>
+      <if test="receiptId != null">
+        receipt_id,
+      </if>
+      <if test="takeName != null">
+        take_name,
+      </if>
+      <if test="takeAddress != null">
+        take_address,
+      </if>
+      <if test="takePhone != null">
+        take_phone,
+      </if>
+      <if test="o1 != null">
+        o1,
+      </if>
+      <if test="o2 != null">
+        o2,
+      </if>
+      <if test="o3 != null">
+        o3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="salemanId != null">
+        #{salemanId,jdbcType=INTEGER},
+      </if>
+      <if test="customId != null">
+        #{customId,jdbcType=INTEGER},
+      </if>
+      <if test="arriveCountryId != null">
+        #{arriveCountryId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingAddress != null">
+        #{shippingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingName != null">
+        #{shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingPhone != null">
+        #{shippingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypeId != null">
+        #{payTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="cargoShippingId != null">
+        #{cargoShippingId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptId != null">
+        #{receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="takeName != null">
+        #{takeName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeAddress != null">
+        #{takeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="takePhone != null">
+        #{takePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="o1 != null">
+        #{o1,jdbcType=VARCHAR},
+      </if>
+      <if test="o2 != null">
+        #{o2,jdbcType=VARCHAR},
+      </if>
+      <if test="o3 != null">
+        #{o3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.OrderPO">
+    update t_order
+    <set>
+      <if test="salemanId != null">
+        saleman_id = #{salemanId,jdbcType=INTEGER},
+      </if>
+      <if test="customId != null">
+        custom_id = #{customId,jdbcType=INTEGER},
+      </if>
+      <if test="arriveCountryId != null">
+        arrive_country_id = #{arriveCountryId,jdbcType=INTEGER},
+      </if>
+      <if test="shippingAddress != null">
+        shipping_address = #{shippingAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingName != null">
+        shipping_name = #{shippingName,jdbcType=VARCHAR},
+      </if>
+      <if test="shippingPhone != null">
+        shipping_phone = #{shippingPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypeId != null">
+        pay_type_id = #{payTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="cargoShippingId != null">
+        cargo_shipping_id = #{cargoShippingId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptId != null">
+        receipt_id = #{receiptId,jdbcType=INTEGER},
+      </if>
+      <if test="takeName != null">
+        take_name = #{takeName,jdbcType=VARCHAR},
+      </if>
+      <if test="takeAddress != null">
+        take_address = #{takeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="takePhone != null">
+        take_phone = #{takePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="o1 != null">
+        o1 = #{o1,jdbcType=VARCHAR},
+      </if>
+      <if test="o2 != null">
+        o2 = #{o2,jdbcType=VARCHAR},
+      </if>
+      <if test="o3 != null">
+        o3 = #{o3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.OrderPO">
+    update t_order
+    set saleman_id = #{salemanId,jdbcType=INTEGER},
+      custom_id = #{customId,jdbcType=INTEGER},
+      arrive_country_id = #{arriveCountryId,jdbcType=INTEGER},
+      shipping_address = #{shippingAddress,jdbcType=VARCHAR},
+      shipping_name = #{shippingName,jdbcType=VARCHAR},
+      shipping_phone = #{shippingPhone,jdbcType=VARCHAR},
+      pay_type_id = #{payTypeId,jdbcType=INTEGER},
+      cargo_shipping_id = #{cargoShippingId,jdbcType=INTEGER},
+      receipt_id = #{receiptId,jdbcType=INTEGER},
+      take_name = #{takeName,jdbcType=VARCHAR},
+      take_address = #{takeAddress,jdbcType=VARCHAR},
+      take_phone = #{takePhone,jdbcType=VARCHAR},
+      o1 = #{o1,jdbcType=VARCHAR},
+      o2 = #{o2,jdbcType=VARCHAR},
+      o3 = #{o3,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

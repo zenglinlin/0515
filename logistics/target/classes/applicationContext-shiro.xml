@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- Shiro 的Web过滤器 -->
+	<bean name="shiro" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
+		<property name="loginUrl" value="/login.jsp" />
+		<property name="unauthorizedUrl" value="/refuse.jsp" />
+		<!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
+		<property name="filterChainDefinitions"
+			<value>
+				<!-- 退出拦截，请求logout执行退出操作 -->
+				/logout = logout
+				<!-- 无权访问提示的的页面，可匿名访问 -->
+				/refuse.jsp = anon
+				/login.jsp = anon
+				<!-- 静态的资源，可匿名访问 -->
+				/resources/js/** = anon
+				/resources/css/** = anon
+				/resources/fonts/** =
+				anon
+				/resources/img/** = anon
+				/resources/plugins/** = anon
+				<!-- 访问路径，需要授权访问 -->
+				/user/* = authc
+				/basic/* = authc
+				/role/* = authc
+				/menu/* = authc
+
+				/** = authc
+			</value>
+			">
+			<value>
+				<!-- 退出拦截，请求logout执行退出操作 -->
+				/logout = logout
+				<!-- 无权访问页面 -->
+				/refuse.jsp = anon
+				<!-- roles[XX]表示有XX角色才可访问 -->
+				/item/list.action = roles[item],authc
+
+				/js/** anon
+				/images/** anon
+				/styles/** anon
+				/validatecode.jsp anon
+				/item/* authc
+				<!-- user表示身份认证通过或通过记住我认证通过的可以访问 -->
+				/** = authc
+			</value>
+		</property>
+	</bean>
+
+	<!-- 安全管理器 -->
+	<bean name="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm" />
+	</bean>
+
+
+	<bean id="credentialsMatcher"
+		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="1" />
+	</bean>
+
+	<!-- 自定义 realm -->
+	<bean id="userRealm" class="com.web.yt.realm.CustomRealm">
+		<property name="credentialsMatcher" ref="credentialsMatcher" />
+	</bean>
+</beans>

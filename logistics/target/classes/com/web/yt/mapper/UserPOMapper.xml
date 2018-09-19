@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.UserPOMapper">
+	<resultMap id="BaseResultMap" type="com.web.yt.pojo.UserPO">
+		<id column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="real_name" jdbcType="VARCHAR" property="realName" />
+		<result column="password" jdbcType="VARCHAR" property="password" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="u1" jdbcType="VARCHAR" property="u1" />
+		<result column="u2" jdbcType="VARCHAR" property="u2" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		user_id, user_name, real_name, password, email, phone, u1,
+		u2
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where user_id = #{userId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectByUserName" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		where user_name = #{userName}
+	</select>
+
+	<select id="userQuery" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+	</select>
+
+	<resultMap type="com.web.yt.pojo.UserPO" id="UserRoleSelectMap" extends="BaseResultMap" autoMapping="true" >
+		<collection property="roles" ofType="com.web.yt.pojo.RolePO" autoMapping="true">
+			<result column="role_name" property="roleName"/>
+		</collection>
+	</resultMap>
+	<select id="userCondQuery" resultMap="UserRoleSelectMap">
+		SELECT
+			t_user.user_id,
+			t_user.user_name,
+			t_user.real_name,
+			t_user.email,
+			t_user.phone,
+			t_role.role_name
+			FROM
+			t_user
+			left JOIN t_user_role ON t_user_role.user_id = t_user.user_id
+			left JOIN t_role ON t_user_role.role_id = t_role.role_id
+		<where>
+			<if test="userName != null and userName != ''">and user_name like '%' #{userName} '%'</if>
+			<if test="realName != null and realName != ''">and real_name like '%' #{realName} '%'</if>
+			<if test="email != null and email != ''">and email like '%' #{email} '%'</if>
+			<if test="phone != null and phone != ''">and phone like '%' #{phone} '%'</if>
+		</where>
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from t_user
+		where user_id = #{userId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.web.yt.pojo.UserPO">
+		insert into t_user (user_id,
+		user_name, real_name,
+		password, email, phone,
+		u1, u2)
+		values
+		(#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+		#{realName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+		#{u1,jdbcType=VARCHAR}, #{u2,jdbcType=VARCHAR})
+	</insert>
+
+	<insert id="insertSelective" parameterType="com.web.yt.pojo.UserPO" useGeneratedKeys="true" keyProperty="userId">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="realName != null">
+				real_name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="u1 != null">
+				u1,
+			</if>
+			<if test="u2 != null">
+				u2,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="userName != null">
+				#{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				#{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="u1 != null">
+				#{u1,jdbcType=VARCHAR},
+			</if>
+			<if test="u2 != null">
+				#{u2,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.UserPO">
+		update t_user
+		<set>
+			<if test="userName != null">
+				user_name = #{userName,jdbcType=VARCHAR},
+			</if>
+			<if test="realName != null">
+				real_name = #{realName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="u1 != null">
+				u1 = #{u1,jdbcType=VARCHAR},
+			</if>
+			<if test="u2 != null">
+				u2 = #{u2,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where user_id = #{userId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.UserPO">
+		update t_user
+		set
+		user_name = #{userName,jdbcType=VARCHAR},
+		real_name =
+		#{realName,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		phone = #{phone,jdbcType=VARCHAR},
+		u1 = #{u1,jdbcType=VARCHAR},
+		u2 = #{u2,jdbcType=VARCHAR}
+		where user_id =
+		#{userId,jdbcType=INTEGER}
+	</update>
+</mapper>

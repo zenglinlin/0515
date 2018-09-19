@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.UserRolePOMapper">
+	<resultMap id="BaseResultMap" type="com.web.yt.pojo.UserRolePO">
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="role_id" jdbcType="INTEGER" property="roleId" />
+	</resultMap>
+	<insert id="insert" parameterType="com.web.yt.pojo.UserRolePO">
+		insert into t_user_role
+		(user_id, role_id)
+		values (#{userId,jdbcType=INTEGER},
+		#{roleId,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.web.yt.pojo.UserRolePO">
+		insert into t_user_role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="userId != null">
+				#{userId,jdbcType=INTEGER},
+			</if>
+			<if test="roleId != null">
+				#{roleId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<delete id="deleteByUserId" parameterType="java.lang.Integer">
+		delete from
+		t_user_role
+		where user_id = #{uid}
+	</delete>
+	
+	<delete id="deleteByRoleId" parameterType="java.lang.Integer">
+		delete from
+		t_user_role
+		where user_id = #{roleId}
+	</delete>
+
+
+	<select id="selectRoleIdByUserId" parameterType="java.lang.Integer"
+		resultType="java.lang.Integer">
+		select role_id
+		from t_user_role
+		where user_id = #{userId}
+	</select>
+
+	<select id="selectUserIdsByRoleId" resultType="int">
+		SELECT
+		Count(1)
+		FROM
+		t_user_role
+		INNER JOIN t_role ON t_user_role.role_id =
+		t_role.role_id
+		WHERE
+		t_role.role_id = #{roleId}
+	</select>
+
+</mapper>

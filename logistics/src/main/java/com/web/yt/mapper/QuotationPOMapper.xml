@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.web.yt.mapper.QuotationPOMapper">
+  <resultMap id="BaseResultMap" type="com.web.yt.pojo.QuotationPO">
+    <id column="quotation_id" jdbcType="INTEGER" property="quotationId" />
+    <result column="stock_detail_id" jdbcType="INTEGER" property="stockDetailId" />
+    <result column="receipt_cost" jdbcType="DECIMAL" property="receiptCost" />
+    <result column="volume_rate" jdbcType="DECIMAL" property="volumeRate" />
+    <result column="weight_rate" jdbcType="DECIMAL" property="weightRate" />
+    <result column="q1" jdbcType="VARCHAR" property="q1" />
+    <result column="q2" jdbcType="VARCHAR" property="q2" />
+    <result column="q3" jdbcType="VARCHAR" property="q3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    quotation_id, stock_detail_id, receipt_cost, volume_rate, weight_rate, q1, q2, q3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_quotation
+    where quotation_id = #{quotationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_quotation
+    where quotation_id = #{quotationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.web.yt.pojo.QuotationPO">
+    insert into t_quotation (quotation_id, stock_detail_id, receipt_cost, 
+      volume_rate, weight_rate, q1, 
+      q2, q3)
+    values (#{quotationId,jdbcType=INTEGER}, #{stockDetailId,jdbcType=INTEGER}, #{receiptCost,jdbcType=DECIMAL}, 
+      #{volumeRate,jdbcType=DECIMAL}, #{weightRate,jdbcType=DECIMAL}, #{q1,jdbcType=VARCHAR}, 
+      #{q2,jdbcType=VARCHAR}, #{q3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.web.yt.pojo.QuotationPO">
+    insert into t_quotation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="quotationId != null">
+        quotation_id,
+      </if>
+      <if test="stockDetailId != null">
+        stock_detail_id,
+      </if>
+      <if test="receiptCost != null">
+        receipt_cost,
+      </if>
+      <if test="volumeRate != null">
+        volume_rate,
+      </if>
+      <if test="weightRate != null">
+        weight_rate,
+      </if>
+      <if test="q1 != null">
+        q1,
+      </if>
+      <if test="q2 != null">
+        q2,
+      </if>
+      <if test="q3 != null">
+        q3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="quotationId != null">
+        #{quotationId,jdbcType=INTEGER},
+      </if>
+      <if test="stockDetailId != null">
+        #{stockDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCost != null">
+        #{receiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="volumeRate != null">
+        #{volumeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="weightRate != null">
+        #{weightRate,jdbcType=DECIMAL},
+      </if>
+      <if test="q1 != null">
+        #{q1,jdbcType=VARCHAR},
+      </if>
+      <if test="q2 != null">
+        #{q2,jdbcType=VARCHAR},
+      </if>
+      <if test="q3 != null">
+        #{q3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.web.yt.pojo.QuotationPO">
+    update t_quotation
+    <set>
+      <if test="stockDetailId != null">
+        stock_detail_id = #{stockDetailId,jdbcType=INTEGER},
+      </if>
+      <if test="receiptCost != null">
+        receipt_cost = #{receiptCost,jdbcType=DECIMAL},
+      </if>
+      <if test="volumeRate != null">
+        volume_rate = #{volumeRate,jdbcType=DECIMAL},
+      </if>
+      <if test="weightRate != null">
+        weight_rate = #{weightRate,jdbcType=DECIMAL},
+      </if>
+      <if test="q1 != null">
+        q1 = #{q1,jdbcType=VARCHAR},
+      </if>
+      <if test="q2 != null">
+        q2 = #{q2,jdbcType=VARCHAR},
+      </if>
+      <if test="q3 != null">
+        q3 = #{q3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where quotation_id = #{quotationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.web.yt.pojo.QuotationPO">
+    update t_quotation
+    set stock_detail_id = #{stockDetailId,jdbcType=INTEGER},
+      receipt_cost = #{receiptCost,jdbcType=DECIMAL},
+      volume_rate = #{volumeRate,jdbcType=DECIMAL},
+      weight_rate = #{weightRate,jdbcType=DECIMAL},
+      q1 = #{q1,jdbcType=VARCHAR},
+      q2 = #{q2,jdbcType=VARCHAR},
+      q3 = #{q3,jdbcType=VARCHAR}
+    where quotation_id = #{quotationId,jdbcType=INTEGER}
+  </update>
+</mapper>
